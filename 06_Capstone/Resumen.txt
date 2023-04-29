@@ -1,0 +1,61 @@
+Content-based recommendation (CoBR) based on user profile.
+
+User profile: matriz en la que están listadas las preferencias User -> Tags.
+Se puede construir a partir del producto de dos matrices:
+- El usuario pone Ratings sobre cada Item: User -> Items 
+- Cada Item tiene unos tags o features: Items -> Tags.
+- Esto nos produce la matriz de perfiles de usuario User -> Tags.
+
+La idea es que si multiplicamos un vector de features de un nuevo Item (Items -> Tags) por un vector de perfil de usuario (User -> Tags) obtendremos un score.
+
+El ejercicio ha consistido en:
+- Para un pool de usuarios de prueba, sacar un lista de los cursos que NO han visitado aún.
+- Para cada usuario, y para cada curso NO visitado, sacar un Score basándose en su perfil (características del curso multiplicado por perfil).
+- Si en cada caso el score supera un umbral, se añade a un listado.
+
+
+
+
+
+Content-based recommendation (CoBR) based on course similarity.
+
+Este capítulo presupone la existencia de una matriz triangular de similitud entre los items, precalculada de alguna forma.
+Lo único que hay que hacer en este caso es acceder a la matriz de similitud por los índices correctos. Para ello hay que hacer previamente una función auxiliar que permita averiguar primero esos índices.
+
+
+Contando con eso, lo único que hacemos es visitar dicha matriz por las filas de los cursos ya visitados y extramos los valores de aquellas columnas no coincidentes con los mismos que excedan un umbral. Por ejemplo:
+
+Hay un total de 5 cursos y el usuario ya ha visitado los cursos 2º y 3º. El proceso sería:
+- Entrar en la matriz por la fila 2.
+-- Comprobar la similitud con el curso 1, es decir, el elemento (2, 1). Si es mayor del umbral, lo apuntamos.
+-- El elemento (2, 2) nos lo saltamos, ya que sería analizar un elemento ya visitado por el usuario, y además, contra sí mismo.
+-- El elemento (2, 3) nos lo saltamos porque también es un curso ya visitado.
+-- Comprobamos similitud de componentes (2, 4) y (2, 5).
+
+- Repetiremos el proceso con la fila 3 (elementos  (3,1), (3,4) y (3,5) ).
+
+
+
+Clustering (Base para Collaborative Recommendation Systems).
+En este caso volvemos a utilizar el vector de perfiles de usuario. Sin embargo, en lugar de lanzar mi vector contra una nueva película, lo que vamos a hacer es ver qué han consumido personas con vectores similares a los míos, es decir, hay que clusterizar la matriz de perfiles de usuario.
+
+Hecho eso, sólo hay que mirar qué películas han votado positivamente la gente de mi cluster en concreto. Esto nos lleva, de nuevo, a regresar a los vectores de ratings.
+
+En ambos casos 
+
+Este ejercicio no tiene nada que ver con los anteriores, ya que procura separar en clusters la matriz de user profiles.
+Es decir, lo que estamos intentando hacer es agrupar usuarios con gustos similares.
+
+A continuación se hace un ejercicio de PCA que lo que nos dice es que podríamos utilizar una matriz más sencilla para optimizar el clustering obteniendo casi los mismos resultados.
+
+
+Collaborative filtering using KNN.
+
+En este caso el objetivo es el mismo pero se trata de hacerlo SIN disponer de la matriz de perfiles de usuario.
+Ahora sabemos que a esto se le llamaba filtrado colaborativo basado en el usuario.
+Pero hay otro que está centrado en los items.
+
+Si lo entiendo bien, se trata de, en lugar de utilizar la matriz de perfiles (user-tags), emplear más bien la de user-items.
+
+
+
